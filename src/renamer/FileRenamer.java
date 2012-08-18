@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.*;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -37,6 +38,9 @@ public class FileRenamer extends javax.swing.JFrame {
         this.txtDirectory.setText(work_dir);
     }
     
+    /**
+     * List the files in the list view, indicating the old file names and new file names.
+     */
     private void listFiles() {
         ArrayList<String> fileList = new ArrayList<>();
         
@@ -50,6 +54,12 @@ public class FileRenamer extends javax.swing.JFrame {
         this.scrpnlFileList.doLayout();
     }
     
+    /**
+     * Attempts to look for file number in the old file name.\
+     * 
+     * @param fname The string to search file number from
+     * @return String containing the file number found
+     */
     private String findNumber(String fname) {
         char[] f = fname.toCharArray();
         
@@ -58,6 +68,9 @@ public class FileRenamer extends javax.swing.JFrame {
                 if (i + 1 < f.length && Character.isDigit(f[i + 1])) {
                     boolean match = false;
                     
+                    // Finds based on the following format:
+                    //   1. ...[[file_number]]...
+                    //   2. ...[[file_number]v[version_number]]...
                     if (i + 2 < f.length && f[i + 2] != 'v' && !Character.isDigit(f[i + 2])) {
                         match = true;
                     } else if (i + 4 < f.length && f[i + 2] == 'v' && Character.isDigit(f[i + 3]) && !Character.isDigit(f[i + 4])) {
@@ -74,6 +87,10 @@ public class FileRenamer extends javax.swing.JFrame {
         return null;
     }
 
+    /**
+     * Scans the directory listed in the Directory text field
+     * and hashes the file into the HashMap with its possible new name.
+     */
     private void scanDirectory() {
         String directory = this.txtDirectory.getText();
         
@@ -83,6 +100,7 @@ public class FileRenamer extends javax.swing.JFrame {
         
         File[] dir = new File(directory).listFiles();
         
+        // Hashes the files based on the file modified date, ascending
         Arrays.sort(dir, new Comparator<File>(){
             @Override
             public int compare(File f1, File f2) {
@@ -90,12 +108,11 @@ public class FileRenamer extends javax.swing.JFrame {
             }
         });
         
+        // Dumps the hash map to avoid residue entries
         renameMapping = new HashMap<>();
         
         String fillPrefix = this.txtPrefix.getText();
         int fillDigit = Integer.parseInt(this.spnDigitFill.getValue().toString());
-        
-        System.out.println(fillPrefix + "  " + fillDigit);
         
         int fileNumber = 1;
         for (int i = 0; i < dir.length; i++) {
@@ -104,17 +121,25 @@ public class FileRenamer extends javax.swing.JFrame {
             }
             
             String fill = fillPrefix;
+            
+            // fillAmount: the length of the file number strings
+            // Example:
+            //   fillAmount = 4:
+            //     file number   1 = 0001
+            //     file number 232 = 0232
             int fillAmount = fillDigit - Integer.toString(fileNumber).length();
             
             for (int j = 0; j < fillAmount; j++) {
                 fill = fill + "0";
             }
             
+            // Gets the file extension
             String fileExt =
                     dir[i].getName().substring(dir[i].getName().lastIndexOf("."));
             
             String findMatch = null;
             
+            // See if the user wants to find matching file number
             if (this.chkFileNameMatch.isSelected()) {
                 findMatch = this.findNumber(dir[i].getName());
             }
@@ -127,6 +152,7 @@ public class FileRenamer extends javax.swing.JFrame {
             }
         }
         
+        // Displays the scanned files and their new names
         this.listFiles();
     }
     
@@ -326,6 +352,8 @@ public class FileRenamer extends javax.swing.JFrame {
             old_f.renameTo(new_f);
         }
         
+        // Disposes entire window to avoid double rename
+        // Debating: to quit or not to quit...?
         JOptionPane.showMessageDialog(this, "Rename Completed! Click to quit.");
         dispose();
     }//GEN-LAST:event_btnRenameActionPerformed
@@ -341,15 +369,15 @@ public class FileRenamer extends javax.swing.JFrame {
     public static void main(String args[]) {
         try {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.err.println(e.getMessage());
         }
         
         /*
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            @Override
             public void run() {
                 new FileRenamer().setVisible(true);
             }
