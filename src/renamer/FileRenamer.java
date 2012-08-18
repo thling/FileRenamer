@@ -139,16 +139,16 @@ public class FileRenamer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblDirectory = new javax.swing.JLabel();
         txtDirectory = new javax.swing.JTextField();
         btnBrowse = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         scrpnlFileList = new javax.swing.JScrollPane();
         lstFileList = new javax.swing.JList();
         btnRename = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblPrefix = new javax.swing.JLabel();
         txtPrefix = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        lblDigitFill = new javax.swing.JLabel();
         spnDigitFill = new javax.swing.JSpinner();
         jSeparator2 = new javax.swing.JSeparator();
         chkFileNameMatch = new javax.swing.JCheckBox();
@@ -157,7 +157,7 @@ public class FileRenamer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("File Renamer");
 
-        jLabel1.setText("Directory:");
+        lblDirectory.setText("Directory:");
 
         txtDirectory.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -186,9 +186,9 @@ public class FileRenamer extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Prefix");
+        lblPrefix.setText("Prefix");
 
-        jLabel3.setText("Digit FIll");
+        lblDigitFill.setText("Digit FIll");
 
         spnDigitFill.setValue(2);
 
@@ -217,8 +217,8 @@ public class FileRenamer extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lblPrefix)
+                            .addComponent(lblDigitFill))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -229,7 +229,7 @@ public class FileRenamer extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRefresh))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblDirectory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDirectory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +244,7 @@ public class FileRenamer extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
+                        .addComponent(lblDirectory)
                         .addComponent(txtDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnBrowse))
                     .addComponent(chkFileNameMatch, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -254,12 +254,12 @@ public class FileRenamer extends javax.swing.JFrame {
                 .addComponent(scrpnlFileList, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblPrefix)
                     .addComponent(txtPrefix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefresh))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblDigitFill)
                     .addComponent(spnDigitFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,6 +331,7 @@ public class FileRenamer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRenameActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        this.work_dir = this.txtDirectory.getText();
         this.scanDirectory();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -359,11 +360,11 @@ public class FileRenamer extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRename;
     private javax.swing.JCheckBox chkFileNameMatch;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblDigitFill;
+    private javax.swing.JLabel lblDirectory;
+    private javax.swing.JLabel lblPrefix;
     private javax.swing.JList lstFileList;
     private javax.swing.JScrollPane scrpnlFileList;
     private javax.swing.JSpinner spnDigitFill;
